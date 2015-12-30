@@ -3,7 +3,7 @@
 
 html, body {
   height: 100%; width: 100%; margin: 0;
-  overflow:hidden;
+  overflow:auto;
 }
 
 body{
@@ -11,36 +11,28 @@ body{
   	font-family: "Open Sans", Helvetica;
   }
 
-header.outer 
-{
-	min-height:10%;
-	max-height: 14%;
-}
 
-header.inner
+header
 {
-	height:14%;
+	height:10%;
 }
-footer.outer 
-{
-	min-height: 4%;
-}
-footer.inner
+footer
 {
 	height:4%;
-	
+	text-align:center;
+	font-size:9px;
 }
 
 
 .main-body{
-	height:80%;
+	min-height:78%;
 	padding-bottom:1%;
 	border-bottom:2px solid #4A4A4A;
 	}
 
 #login-left{
 	width:65%;
-	//padding-top:10%;
+	margin-top:10px;
 	border-right: 2px solid #4A4A4A;
 	height: 100%;
 	}
@@ -62,14 +54,15 @@ div.img-container img {
 	border-radius: 5px;
 }
 
-
+/*FORM ELEMENTS*/
 form {
   text-align: center;
+  padding-top: 20px;
 }
 
 h2.level-title
 {
-	
+color:#9B9B9B;	
 margin-top:0;
 margin-bottom: 1em;
 }
@@ -132,7 +125,6 @@ button {
   color: white;
   cursor: pointer;
   font-size: 20px;
-//  margin-top: 20px;
   padding: 15px 30px;
   text-transform: uppercase;
   transition: all 200ms;
@@ -142,3 +134,56 @@ button:hover, button:focus {
   color: #333333;
   outline: 0;
 }
+
+
+/*CSS MENU GOES HERE*/
+
+#cssmenu {
+	width: auto;
+	transition: all 200ms;
+	background-color: #4A4A4A;
+	height: 100%;
+}
+#cssmenu > ul {
+  list-style: inside none;
+  margin-left: auto;
+  margin-bottom:0;
+  padding: 0;
+  text-align: center;
+  margin:0;
+}
+
+#cssmenu > ul > li {
+  list-style: inside none;
+  display: inline-block;
+  position: relative;
+  padding-left: 7px;
+  float: none;
+  margin-left: -3px;
+    padding-top: 10px;
+
+}
+#cssmenu > ul > li > a {
+  outline: none;
+  display: block;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  font-size: 13px;
+  padding: 12px 20px; 
+  background-color: #333333;
+  border: 2px solid white;
+  border-radius:27px;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 200ms;
+}
+
+#cssmenu > ul > li > a:hover, a:focus {
+  background-color: white;
+  color: #333333;
+  outline: 0;
+}
+
+
