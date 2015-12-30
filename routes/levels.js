@@ -67,6 +67,7 @@ router.post('/:level', requireLogin, function(req, res) {
               account.save(function(err, saveResponse) {
                 console.log(saveResponse);
                 // reload play page
+                req.session.info = null;
                 res.redirect('/play');
               })
             }
