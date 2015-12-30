@@ -54,6 +54,15 @@ div.img-container img {
 	border-radius: 5px;
 }
 
+
+
+/*Styles for Leaderboard*/
+.leaderboard{
+	text-align:center;
+	margin:auto;
+	padding:auto;
+	}
+
 /*FORM ELEMENTS*/
 form {
   text-align: center;
