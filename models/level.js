@@ -5,10 +5,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Level = new Schema({
-  title: String,
-  level: String,
+  level: Number,
+  clue1: String,
+  clue2: String,
   comment: String,
   hashed_answer: String
 });
 
-module.exports = mongoose.model('Level', Account);
+module.exports = mongoose.model('Level', Level);

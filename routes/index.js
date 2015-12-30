@@ -18,7 +18,10 @@ router.post('/register', function(req, res) {
   Account.register(new Account({
     username: req.body.username,
     firstname: req.body.firstname,
-    lastname: req.body.lastname
+    email: req.body.email,-
+    lastname: req.body.lastname,
+    school: req.body.school,
+    current_level: 0
   }), req.body.password, function(err, account) {
     if (err) {
       return res.render('register', {
