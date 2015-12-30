@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  h3
+    a(href="/logout") Logout
   h1 Admin dashboard
   #container
     h3 Create a new level
@@ -13,8 +15,10 @@ block content
       br
       input(type='text', name='clue1', placeholder='Enter the main clue')
       br
-      button.btn.btn-default(type='submit') Submit
+      button.btn.btn-default(type='submit') Add level
     h3 Existing levels
     ul
       each level in levels
         li= level.title
+        ul
+          li= level.clue1
