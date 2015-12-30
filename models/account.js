@@ -11,7 +11,9 @@ var Account = new Schema({
   lastname: String,
   email: String,
   school: String,
-  password: String
+  password: String,
+  current_level: String,              // used to identify which level a user is on
+  last_solved_timestamp: String       // used to sort users for a leaderboard, based on when they solved their current level
 });
 
 var options = {
