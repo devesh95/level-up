@@ -16,10 +16,21 @@ header.outer
 	min-height:10%;
 	max-height: 14%;
 }
+
+header.inner
+{
+	height:14%;
+}
 footer.outer 
 {
 	min-height: 4%;
 }
+footer.inner
+{
+	height:4%;
+	
+}
+
 
 .main-body{
 	height:80%;
@@ -56,7 +67,12 @@ form {
   text-align: center;
 }
 
-
+h2.level-title
+{
+	
+margin-top:0;
+margin-bottom: 1em;
+}
 
 label {
   display: block;
