@@ -92,6 +92,26 @@ router.get('/admin', requireAdminLogin, function(req, res) {
   })
 });
 
+router.get('/leaderboard', requireLogin, function(req, res) {
+  Account.aggregate([{
+    '$sort': {
+      'current_level': -1,
+      'last_solved_timestamp': 1
+    }
+  }, {
+    '$limit': 50
+  }], function(err, data) {
+    if (err) {
+      next(err);
+    } else {
+      console.log(data);
+      res.render('leaderboard', {
+        data: data
+      });
+    }
+  });
+});
+
 /**
  * Logs out the user
  */
