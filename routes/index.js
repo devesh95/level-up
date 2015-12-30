@@ -18,7 +18,7 @@ router.post('/register', function(req, res) {
   Account.register(new Account({
     username: req.body.username,
     firstname: req.body.firstname,
-    email: req.body.email,-
+    email: req.body.email,
     lastname: req.body.lastname,
     school: req.body.school,
     current_level: 0
@@ -30,19 +30,31 @@ router.post('/register', function(req, res) {
     }
 
     passport.authenticate('local')(req, res, function() {
-      res.redirect('/');
+      // on login, redirect to profile page
+      res.redirect('/users/' + req.user.username);
     });
   });
 });
 
 router.get('/login', function(req, res) {
-  res.render('login', {
-    user: req.user
-  });
+  res.render('login');
 });
 
+function requireLogin(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
 router.post('/login', passport.authenticate('local'), function(req, res) {
-  res.redirect('/');
+  // on login, redirect to profile page
+  res.redirect('/users/' + req.user.username);
+});
+
+router.get('/play', requireLogin, function(req, res) {
+  // TODO: complete
 });
 
 /**

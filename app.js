@@ -9,6 +9,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var routes = require('./routes/index');
+var users = require('./routes/users');
+var levels = require('./routes/levels');
 
 var app = express();
 
@@ -36,6 +38,8 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/users', users);
+app.use('/levels', levels);
 
 // set up passport config for the local strategy
 var Account = require('./models/account');

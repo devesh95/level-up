@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p Welcome #{user.firstname}!
+    p Your email is #{user.email}
+    p Your school is #{user.school}
+    a(href="/logout") Logout
