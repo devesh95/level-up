@@ -1,19 +1,32 @@
 extends layout
 
 block content
-  .container
-    h1 Login Page
-    p.lead Say something worthwhile here.
-    br
-    form(role='form', action="/login",method="post", style='max-width: 300px;')
-      .form-group
-          input.form-control(type='text', name="username", placeholder='Enter Username')
-      .form-group
-        input.form-control(type='password', name="password", placeholder='Password')
-      button.btn.btn-default(type='submit') Submit
-      &nbsp;
-      a(href='/')
-        button.btn.btn-primary(type="button") Cancel
-
-    br
-    h4= info
+    header
+      #cssmenu
+        ul
+          li
+            a(href='#')
+              span Home
+          li
+            a(href='#')
+              span Leaderboard
+          li
+            a(href='#')
+              span About Us
+          li
+            a(href='#')
+              span Sign Up!
+    .main-body
+      section#login-left
+        form(role='form', action="/login",method="post")
+          label
+            input(type='text', name="username", required='')
+            .label-text Username
+          label
+            input(type='password', name="password", required='')
+            .label-text Password
+          button Submit
+      section#login-right
+    footer
+      p
+        | ©   Privacy Policy   Contact Us   The Developers

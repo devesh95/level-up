@@ -1,27 +1,43 @@
 extends layout
 
 block content
-  .container
-    h1 Register Page
-    p.lead Say something worthwhile here.
-    br
-    form(role='form', action="/register", method="post", style='max-width: 300px;')
-      .form-group
-          input.form-control(type='text', name="firstname", placeholder='First Name')
-      .form-group
-          input.form-control(type='text', name="lastname", placeholder='Last Name')
-      .form-group
-          input.form-control(type='text', name="school", placeholder='Enter Your School')
-      .form-group
-          input.form-control(type='text', name="email", placeholder='Email')
-      .form-group
-          input.form-control(type='text', name="username", placeholder='Enter Username')
-      .form-group
-        input.form-control(type='password', name="password", placeholder='Password')
-      button.btn.btn-default(type='submit') Submit
-       &nbsp;
-      a(href='/')
-        button.btn.btn-primary(type="button") Cancel
-
-    br
-    h4= info
+    header
+      #cssmenu
+        ul
+          li
+            a(href='#')
+              span Home
+          li
+            a(href='#')
+              span Leaderboard
+          li
+            a(href='#')
+              span About Us
+          li
+            a(href='#')
+              span Sign Up!
+    .main-body
+      form(role='form', action="/register", method="post")
+        label
+          input(type='text', name="firstname", required='')
+          .label-text First Name 
+        label
+          input(type='text', name="lastname", required='')
+          .label-text Last Name 
+        label
+          input(type='text', name="school", required='')
+          .label-text School 
+        label
+          input(type='text', name="email", required='')
+          .label-text Email 
+        label
+          input(type='text', name="username", required='')
+          .label-text Username 
+        label
+          input(type='password', name="password", required='')
+          .label-text Password
+        button Submit
+        button Cancel
+    footer
+      p
+        | ©   Privacy Policy   Contact Us   The Developers
