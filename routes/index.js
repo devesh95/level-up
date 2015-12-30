@@ -77,7 +77,8 @@ router.get('/play', requireLogin, function(req, res) {
     } else {
       delete level.hashed_answer; // self explanatory lol
       res.render('play', {
-        level: level
+        level: level,
+        info: req.session.info
       });
     }
   });
@@ -85,7 +86,6 @@ router.get('/play', requireLogin, function(req, res) {
 
 router.get('/admin', requireAdminLogin, function(req, res) {
   Level.find(function(err, levels) {
-    console.log(err, levels);
     res.render('admin', {
       levels: levels
     });

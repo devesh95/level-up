@@ -6,28 +6,31 @@ block content
     #cssmenu
       ul
         li
-          a(href='#')
+          a(href='/')
             span Home
         li
-          a(href='#')
+          a(href='/leaderboard')
             span Leaderboard
         li
-          a(href='#')
-            span About Us
+          a(href='/rules')
+            span Rules
         li
-          a(href='#')
+          a(href='/logout')
             span Sign Out
             
   .main-body
-    form
+    form(role="form", action="/levels/#{level.level}", method="post")
       h2.level-title
-        | Level 1: Title
-      .img-container
-        img(src='/images/pj.jpg')
+        | Level #{level.level}: #{level.title}
+      if (level.imagePath)
+        .img-container
+          img(src='/images/pj.jpg')
       label
         input(type='text', name="answer", required='')
-        .label-text Clue 1 Goes Here
-      button Submit
+        .label-text #{level.clue1}
+      br
+      h3(style="color: #f00")= info
+      button(type='submit') Submit
         
   footer
     p
