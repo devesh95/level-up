@@ -1,0 +1,34 @@
+extends layout
+block content
+
+    header
+      #cssmenu
+        ul
+          li
+            a(href='#')
+              span Profile
+          li
+            a(href='#')
+              span Leaderboard
+          li
+            a(href='#')
+              span Rules
+          li
+            a(href='#')
+              span Sign Up!
+    .main-body
+      table.leaderboard
+        thead
+          tr
+            td Rank
+            td Username
+            td
+              | Level
+        tr
+          td
+            | 1
+          td Baapkabaap
+          td 42
+    footer
+      p
+        | ©   Privacy Policy   Contact Us   The Developers

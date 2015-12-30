@@ -64,69 +64,23 @@ div.img-container img {
 	padding:auto;
 	background-color: #333333;
   	color: white;
- 	 text-transform: uppercase;
-  	transition: all 200ms;
+ 	 text-transform: uppercase;    
+	 -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+         -o-animation: fadein 2s; /* Opera < 12.1 */
+            animation: fadein 2s;
 	}
+	.leaderboard thead >tr >td{
+		font-weight:bold;
+		border-bottom:0;}
 .leaderboard td{
-	padding: 10px;}
-#hlevel{
-    margin-top: 25px;
-    font-size: 24px;
-    text-align: center;
+	text-transform:capitalize;
+	padding-left:20px;
+	  border-bottom: 1px solid #4A4A4A;
+	  max-width:30%;
 
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-         -o-animation: fadein 2s; /* Opera < 12.1 */
-            animation: fadein 2s;
-}
-#clevel{
-    margin-top: 25px;
-    font-size: 20px;
-    text-align: center;
-
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-         -o-animation: fadein 2s; /* Opera < 12.1 */
-            animation: fadein 2s;
-}
-#alevel{
-    margin-top: 25px;
-    font-size: 20px;
-    text-align: center;
-
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-         -o-animation: fadein 2s; /* Opera < 12.1 */
-            animation: fadein 2s;
-}
-#yrank
-{
-    font-size: 65px;
-	font-weight:bold;
-    text-align: center;
-
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-         -o-animation: fadein 2s; /* Opera < 12.1 */
-            animation: fadein 2s;
 	}
-	
-	#tplayers{
-    margin-top: 25px;
-    font-size: 20px;
-    text-align: center;
-
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-         -o-animation: fadein 2s; /* Opera < 12.1 */
-            animation: fadein 2s;
-}
-	
 	
 @keyframes fadein {
     from { opacity: 0; }
