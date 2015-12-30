@@ -77,7 +77,7 @@ router.get('/play', requireLogin, function(req, res) {
     } else {
       level ? delete level.hashed_answer : console.log('no level found'); // self explanatory lol
       res.render('play', {
-        level: level,
+        level: level || {},
         info: req.session.info
       });
     }
