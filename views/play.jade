@@ -1,0 +1,34 @@
+extends layout
+
+block content
+
+  header
+    #cssmenu
+      ul
+        li
+          a(href='#')
+            span Home
+        li
+          a(href='#')
+            span Leaderboard
+        li
+          a(href='#')
+            span About Us
+        li
+          a(href='#')
+            span Sign Out
+            
+    .main-body
+      form
+        h2.level-title
+          | Level 1: Title
+        .img-container
+          img(src='pj.jpg')
+        label
+          input(type='text', name="answer", required='')
+          .label-text Clue 1 Goes Here
+        button Submit
+        
+    footer
+      p
+        | ©   Privacy Policy   Contact Us   The Developers
