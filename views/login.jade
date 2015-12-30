@@ -5,17 +5,17 @@ block content
       #cssmenu
         ul
           li
-            a(href='#')
+            a(href='/')
               span Home
           li
-            a(href='#')
+            a(href='/leaderboard')
               span Leaderboard
           li
-            a(href='#')
-              span About Us
+            a(href='/rules')
+              span Rules
           li
-            a(href='#')
-              span Sign Up!
+            a(href='/register')
+              span Register
     .main-body
       section#login-left
         form(role='form', action="/login",method="post")
@@ -25,7 +25,7 @@ block content
           label
             input(type='password', name="password", required='')
             .label-text Password
-          button Submit
+          button Log in
       section#login-right
     footer
       p
