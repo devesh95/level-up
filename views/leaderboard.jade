@@ -24,11 +24,12 @@ block content
             td Username
             td
               | Level
-        tr
-          td
-            | 1
-          td Baapkabaap
-          td 42
+        each user, index in data
+          tr
+            td
+              | #{index + 1}
+            td #{user.username}
+            td #{user.current_level}
     footer
       p
         | ©   Privacy Policy   Contact Us   The Developers

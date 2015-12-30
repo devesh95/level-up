@@ -92,7 +92,7 @@ router.get('/admin', requireAdminLogin, function(req, res) {
   })
 });
 
-router.get('/leaderboard', requireLogin, function(req, res) {
+router.get('/leaderboard', function(req, res) {
   Account.aggregate([{
     '$sort': {
       'current_level': -1,
@@ -104,7 +104,6 @@ router.get('/leaderboard', requireLogin, function(req, res) {
     if (err) {
       next(err);
     } else {
-      console.log(data);
       res.render('leaderboard', {
         data: data
       });
