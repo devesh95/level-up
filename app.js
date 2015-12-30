@@ -48,7 +48,7 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // MongoDB local route - change to production db later
-mongoose.connect('mongodb://localhost/level-up');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/level-up');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
