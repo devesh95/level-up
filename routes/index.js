@@ -1,6 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var Account = require('../models/account');
+var Level = require('../models/level');
 var router = express.Router();
 
 /* GET home page. */
@@ -48,13 +49,47 @@ function requireLogin(req, res, next) {
   }
 }
 
+function requireAdminLogin(req, res, next) {
+  if (req.user && req.user.username == 'admin') {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
 router.post('/login', passport.authenticate('local'), function(req, res) {
-  // on login, redirect to profile page
-  res.redirect('/users/' + req.user.username);
+  if (req.user.username == 'admin') {
+    res.redirect('/admin');
+  } else {
+    // on login, redirect to profile page
+    res.redirect('/users/' + req.user.username);
+  }
 });
 
 router.get('/play', requireLogin, function(req, res) {
-  // TODO: complete
+  var current_level = req.user.current_level;
+  Level.findOne({
+    level: current_level
+  }, function(err, level) {
+    if (err) {
+      console.log(err);
+      next(err); // TODO: handle better
+    } else {
+      delete level.hashed_answer; // self explanatory lol
+      res.render('play', {
+        level: level
+      });
+    }
+  });
+});
+
+router.get('/admin', requireAdminLogin, function(req, res) {
+  Level.find(function(err, levels) {
+    console.log(err, levels);
+    res.render('admin', {
+      levels: levels
+    });
+  })
 });
 
 /**

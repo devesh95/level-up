@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Admin dashboard
+  #container
+    h3 Create a new level
+    form(role='form', method="post", action='/levels/new')
+      input(type='number', name='level', placeholder='0')
+      br
+      input(type='text', name='title', placeholder='Level title')
+      br
+      input(type='text', name='answer', placeholder='Enter the answer for this level')
+      br
+      button.btn.btn-default(type='submit') Submit
+    h3 Existing levels
+    ul
+      each level in levels
+        li= level.title

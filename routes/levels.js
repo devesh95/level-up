@@ -13,6 +13,28 @@ function requireLogin(req, res, next) {
   }
 }
 
+function requireAdminLogin(req, res, next) {
+  if (req.user && req.user.username == 'admin') {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
+router.post('/new', requireAdminLogin, function(req, res) {
+  var newLevel = new Level();
+  newLevel.title = req.body.title;
+  newLevel.hashed_answer = crypto.createHash('md5').update(req.body.answer).digest('hex');
+  newLevel.level = req.body.level;
+  newLevel.save(function(err, done) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.redirect('/admin');
+    }
+  });
+});
+
 router.post('/:level', requireLogin, function(req, res) {
   var levelId = req.params.level;
   if (req.body.answer && req.body.answer != '') {

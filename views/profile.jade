@@ -6,6 +6,7 @@ block content
     br
     a(href="/register") Register
   if (user)
+    a(href="/play") Play
     p Welcome #{user.firstname}!
     p Your email is #{user.email}
     p Your school is #{user.school}
