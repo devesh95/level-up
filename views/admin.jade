@@ -1,24 +1,39 @@
 extends layout
 
 block content
-  h3
-    a(href="/logout") Logout
-  h1 Admin dashboard
-  #container
-    h3 Create a new level
-    form(role='form', method="post", action='/levels/new')
-      input(type='number', name='level', placeholder='0')
-      br
-      input(type='text', name='title', placeholder='Level title')
-      br
-      input(type='text', name='answer', placeholder='Enter the answer for this level')
-      br
-      input(type='text', name='clue1', placeholder='Enter the main clue')
-      br
-      button.btn.btn-default(type='submit') Add level
-    h3 Existing levels
-    ul
-      each level in levels
-        li= level.title
+    header
+      #cssmenu
         ul
-          li= level.clue1
+          li
+            a(href='#')
+              span Home
+          li
+            a(href='/leaderboard')
+              span Leaderboard
+          li
+            a(href='/logout')
+              span Logout
+    .main-body
+      section#login-left
+        h2 Create a New Level
+        form(role='form', method='post', action='/levels/new')
+          label
+            input(type='number', name='level', required='')
+            .label-text Level Number
+          label
+            input(type='text', name='title', required='')
+            .label-text Level Title
+          label
+            input(type='text', name='answer', required='')
+            .label-text Answer
+          label
+            input(type='text', name='clue', required='')
+            .label-text Clue
+          button Add Level
+      section#login-right
+        h2 Existing Levels
+            ul
+                each level in levels
+                    li= level.title
+                        ul
+                            li= level.clue1

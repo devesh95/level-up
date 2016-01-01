@@ -35,6 +35,7 @@ footer
 	margin-top:10px;
 	border-right: 2px solid #4A4A4A;
 	height: 100%;
+    float: left;
 	}
 
 #login-right{
@@ -42,6 +43,7 @@ footer
 	margin:auto;
 	margin-top:auto;
 	height: 100%;
+    float: right;
 	}
 
 div.img-container
@@ -157,6 +159,15 @@ label input {
   transition: all 0.3s;
   width: 200px;
 }
+
+ul li
+{
+   text-decoration: none;
+   color: white;
+   font-size: 20px;
+   letter-spacing: -1px; 
+}
+
 label input:focus {
   max-width: 100%;
   width: 400px;
@@ -176,6 +187,12 @@ label input:valid + .label-text {
   -webkit-transform: translateY(-74px);
   transform: translateY(-74px);
 }
+label input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 
 button {
   background-color: #333333;

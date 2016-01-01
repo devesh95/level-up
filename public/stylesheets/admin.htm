@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+	Admin Console
+</title>
+<link rel=stylesheet href="style2.css">
+</head>
+<body>
+<header>
+<div id ="cssmenu">
+<ul>
+   <li><a href='#'><span>Home</span></a></li>
+   <li ><a href='/leaderboard'><span>Leaderboard</span></a></li>
+   <li><a href='/logout'><span>Logout</span></a></li>
+</ul>
+</div>
+
+</header>
+<div class="main-body">
+<section id="login-left">
+    <h2>Create a New Level</h2>
+<form method="post" action="/levels/new">  
+	<label>    
+		<input type="number" name="level" required />    <div class="label-text">Level Number</div>  
+	</label> 
+		<label>    
+		<input type="text" name="title" required />    <div class="label-text">Level Title</div>  
+	</label> 
+		<label>    
+		<input type="text" name="answer" required />    <div class="label-text">Answer</div>  
+	</label>
+		<label>    
+		<input type="text" name="clue" required />    <div class="label-text">Clue</div>  
+	</label> 
+	<button>Add Level</button>
+</form>
+</section>
+<section id="login-right">
+    <h2>Existing Levels</h2>
+</section>
+</div>
+
+</body>
+</html>
