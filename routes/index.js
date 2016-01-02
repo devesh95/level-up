@@ -6,9 +6,17 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {
-    user: req.user
-  });
+  if (req.user) {
+    if (req.user.username == 'admin') {
+      res.redirect('/admin');
+    } else {
+      res.redirect('/users/' + req.user.username);
+    }
+  } else {
+    res.render('index', {
+      user: req.user
+    });
+  }
 });
 
 router.get('/register', function(req, res) {
@@ -39,8 +47,11 @@ router.post('/register', function(req, res) {
 
 router.get('/login', function(req, res) {
   if (req.user) {
-    // if already logged in, load user profile
-    res.redirect('/users/' + req.user.username);
+    if (req.user.username == 'admin') {
+      res.redirect('/admin');
+    } else {
+      res.redirect('/users/' + req.user.username);
+    }
   } else {
     res.render('login');
   }
