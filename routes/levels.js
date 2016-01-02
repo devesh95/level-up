@@ -35,6 +35,7 @@ function requireAdminLogin(req, res, next) {
  * }
  */
 router.post('/new', requireAdminLogin, function(req, res) {
+  console.log(req.body);
   if (req.body && req.body.title && req.body.level && req.body.clue1 && req.body.answer) {
     var newLevel = new Level();
     newLevel.title = req.body.title;
@@ -113,7 +114,17 @@ router.post('/:level', requireLogin, function(req, res) {
  * Deletes a level, but requires admin privilege.
  */
 router.get('/:level/delete', requireAdminLogin, function(req, res) {
-
+  var level_id_to_delete = req.params.level;
+  Level.remove({
+    _id: level_id_to_delete
+  }, function (err, result) {
+    if (err) {
+      console.log(err);
+      next(err); // TODO: handle better
+    } else {
+      res.redirect('/admin');
+    }
+  });
 });
 
 module.exports = router;

@@ -24,7 +24,7 @@ block content
             input(type='text', name='title', required='')
             .label-text Level Title
           label
-            input(type='text', name='clue', required='')
+            input(type='text', name='clue1', required='')
             .label-text Clue
           label
             input(type='text', name='answer', required='')
@@ -42,4 +42,4 @@ block content
                                 li
                                   a(href='/levels/#{level.id}/edit') Edit
                                 li
-                                  a(href='#/levels/#{level.id}/delete') Delete
+                                  a(href='/levels/#{level.id}/delete') Delete

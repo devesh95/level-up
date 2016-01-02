@@ -90,11 +90,20 @@ router.get('/play', requireLogin, function(req, res) {
 });
 
 router.get('/admin', requireAdminLogin, function(req, res) {
-  Level.find(function(err, levels) {
+  Level.aggregate([{
+    '$sort': {
+      'level': 1,
+    }
+  }], function(err, levels) {
     res.render('admin', {
       levels: levels
     });
-  })
+  });
+  // Level.find(function(err, levels) {
+  //   res.render('admin', {
+  //     levels: levels
+  //   });
+  // });
 });
 
 router.get('/leaderboard', function(req, res) {
