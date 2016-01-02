@@ -38,7 +38,12 @@ router.post('/register', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-  res.render('login');
+  if (req.user) {
+    // if already logged in, load user profile
+    res.redirect('/users/' + req.user.username);
+  } else {
+    res.render('login');
+  }
 });
 
 function requireLogin(req, res, next) {
@@ -116,7 +121,7 @@ router.get('/leaderboard', function(req, res) {
  */
 router.get('/logout', function(req, res) {
   req.logout();
-  res.redirect('/');
+  res.redirect('/login');
 });
 
 module.exports = router;

@@ -5,7 +5,7 @@ block content
       #cssmenu
         ul
           li
-            a(href='#')
+            a(href='/')
               span Home
           li
             a(href='/leaderboard')
@@ -19,21 +19,27 @@ block content
         form(role='form', method='post', action='/levels/new')
           label
             input(type='number', name='level', required='')
-            .label-text Level Number
+            .label-text Level Number (Next: #{levels.length})
           label
             input(type='text', name='title', required='')
             .label-text Level Title
           label
-            input(type='text', name='answer', required='')
-            .label-text Answer
-          label
             input(type='text', name='clue', required='')
             .label-text Clue
+          label
+            input(type='text', name='answer', required='')
+            .label-text Answer
           button Add Level
       section#login-right
         h2 Existing Levels
             ul
                 each level in levels
-                    li= level.title
+                    li #{level.level} - #{level.title}
                         ul
-                            li= level.clue1
+                            li Page clue: #{level.clue1}
+                            li Actions
+                              ul
+                                li
+                                  a(href='/levels/#{level.id}/edit') Edit
+                                li
+                                  a(href='#/levels/#{level.id}/delete') Delete

@@ -17,25 +17,48 @@ function requireAdminLogin(req, res, next) {
   if (req.user && req.user.username == 'admin') {
     next();
   } else {
+    console.log('ERROR: Trying to access admin resources with insufficient privileges.');
+    console.log('Trespasser:');
+    console.log(req.user);
     res.redirect('/login');
   }
 }
 
+/**
+ * Adds a new level to the database, only if created by an admin account.
+ * Must contain at the least the following the fields:
+ * req.body: {
+ *   title: String,
+ *   answer: String,
+ *   level: Number,
+ *   clue1: String
+ * }
+ */
 router.post('/new', requireAdminLogin, function(req, res) {
-  var newLevel = new Level();
-  newLevel.title = req.body.title;
-  newLevel.hashed_answer = crypto.createHash('md5').update(req.body.answer).digest('hex');
-  newLevel.level = req.body.level;
-  newLevel.clue1 = req.body.clue1;
-  newLevel.save(function(err, done) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.redirect('/admin');
-    }
-  });
+  if (req.body && req.body.title && req.body.level && req.body.clue1 && req.body.answer) {
+    var newLevel = new Level();
+    newLevel.title = req.body.title;
+    newLevel.hashed_answer = crypto.createHash('md5').update(req.body.answer).digest('hex');
+    newLevel.level = Number(req.body.level);
+    newLevel.clue1 = req.body.clue1;
+    newLevel.save(function(err, done) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.redirect('/admin');
+      }
+    });
+  } else {
+    console.log('ERROR: Attempt to create new level failed.')
+    res.redirect('/admin');
+  }
 });
 
+/**
+ * Checks answer for a level for a logged in user.
+ * If answer is incorrect, the play page is reloaded.
+ * If answer is correct, the user's current level is incremented, and the play page is reloaded with the new level.
+ */
 router.post('/:level', requireLogin, function(req, res) {
   var levelId = req.params.level;
   if (req.body.answer && req.body.answer != '') {
@@ -84,6 +107,13 @@ router.post('/:level', requireLogin, function(req, res) {
       result: 'Invalid request.'
     });
   }
+});
+
+/**
+ * Deletes a level, but requires admin privilege.
+ */
+router.get('/:level/delete', requireAdminLogin, function(req, res) {
+
 });
 
 module.exports = router;
