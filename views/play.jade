@@ -28,6 +28,9 @@ block content
       label
         input(type='text', name="answer", required='')
         .label-text #{level.clue1}
+      if (level.comment_clue)
+        //
+          #{level.comment_clue}
       br
       h3(style="color: #f00")= info
       button(type='submit') Submit

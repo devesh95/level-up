@@ -14,8 +14,12 @@ block content
             a(href='/rules')
               span Rules
           li
-            a(href='#')
-              span Sign Up!
+            if (signed_in)
+              a(href='/logout')
+                span Sign Out
+            else
+              a(href='/login')
+                span Log In
     .main-body
       table.leaderboard
         thead

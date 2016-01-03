@@ -53,7 +53,15 @@ router.get('/login', function(req, res) {
       res.redirect('/users/' + req.user.username);
     }
   } else {
-    res.render('login');
+    if (req.query.failure === 'true') {
+      // login page after incorrect attempt
+      res.render('login', {
+        message: 'Incorrect username or password.'
+      });
+    } else {
+      // normal login page
+      res.render('login');
+    }
   }
 });
 
@@ -73,7 +81,9 @@ function requireAdminLogin(req, res, next) {
   }
 }
 
-router.post('/login', passport.authenticate('local'), function(req, res) {
+router.post('/login', passport.authenticate('local', {
+  failureRedirect: '/login?failure=true'
+}), function(req, res) {
   if (req.user.username == 'admin') {
     res.redirect('/admin');
   } else {
@@ -129,8 +139,13 @@ router.get('/leaderboard', function(req, res) {
     if (err) {
       next(err);
     } else {
+      var signed_in = false;
+      if (req.user) {
+        signed_in = true;
+      }
       res.render('leaderboard', {
-        data: data
+        data: data,
+        signed_in: signed_in
       });
     }
   });
