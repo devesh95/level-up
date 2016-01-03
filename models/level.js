@@ -8,6 +8,7 @@ var Level = new Schema({
   level: Number,
   clue1: String,
   clue2: String,
+  comment_clue: String,
   imagePath: String,
   title: String,
   comment: String,

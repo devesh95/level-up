@@ -15,21 +15,46 @@ block content
               span Logout
     .main-body
       section#login-left
-        h2 Create a New Level
-        form(role='form', method='post', action='/levels/new')
-          label
-            input(type='number', name='level', required='')
-            .label-text Level Number (Next: #{levels.length})
-          label
-            input(type='text', name='title', required='')
-            .label-text Level Title
-          label
-            input(type='text', name='clue1', required='')
-            .label-text Clue
-          label
-            input(type='text', name='answer', required='')
-            .label-text Answer
-          button Add Level
+        if (editview)
+          h2 Currently viewing level #{editview.level}
+        else
+          h2 Create a New Level
+        if (editview)
+          form(role='form', method='post', action='/levels/#{editview._id}/edit')
+            label
+              input(type='number', name='level', required='', value='#{editview.level}')
+              .label-text Level Number)
+            label
+              input(type='text', name='title', required='', value='#{editview.title}')
+              .label-text Level Title
+            label
+              input(type='text', name='clue1', required='', value='#{editview.clue1}')
+              .label-text Main Clue
+            label
+              input(type='text', name='comment_clue', value='#{editview.comment_clue}')
+              .label-text Comment Clue
+            label
+              input(type='text', name='answer', required='', value='')
+              .label-text Answer
+            button Edit Level
+        else
+          form(role='form', method='post', action='/levels/new')
+            label
+              input(type='number', name='level', required='')
+              .label-text Level Number (Next: #{levels.length})
+            label
+              input(type='text', name='title', required='')
+              .label-text Level Title
+            label
+              input(type='text', name='clue1', required='')
+              .label-text Main Clue
+            label
+              input(type='text', name='comment_clue')
+              .label-text Comment Clue
+            label
+              input(type='text', name='answer', required='')
+              .label-text Answer
+            button Add Level
      
       section#login-right
         table#level-info
@@ -49,5 +74,5 @@ block content
                 td #{level.clue1}
                 td 
                   a(href='/levels/#{level._id}/edit', style='color: #0f0') Edit
-                  &nbsp;
+                  span.space &nbsp;
                   a(href='/levels/#{level._id}/delete', style='color: #f00') Delete

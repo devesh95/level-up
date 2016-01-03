@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var Account = require('../models/account');
 var Level = require('../models/level');
+var crypto = require('crypto');
 var router = express.Router();
 
 /* GET home page. */
@@ -116,15 +117,25 @@ router.get('/admin', requireAdminLogin, function(req, res) {
       'level': 1,
     }
   }], function(err, levels) {
-    res.render('admin', {
-      levels: levels
-    });
+    if (req.query.editview) {
+      var editview_id = String(req.query.editview);
+      var details = null;
+      for (var i = 0; i < levels.length; i++) {
+        if (levels[i]._id == editview_id) {
+          details = levels[i];
+          break;
+        }
+      }
+      res.render('admin', {
+        levels: levels,
+        editview: details
+      });
+    } else {
+      res.render('admin', {
+        levels: levels
+      });
+    }
   });
-  // Level.find(function(err, levels) {
-  //   res.render('admin', {
-  //     levels: levels
-  //   });
-  // });
 });
 
 router.get('/leaderboard', function(req, res) {
