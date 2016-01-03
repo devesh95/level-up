@@ -8,6 +8,7 @@ html, body {
 
 ::-webkit-scrollbar {
     width: 2px;  /* remove scrollbar space */
+    height: 2px;
     background: transparent; 
 }
 
@@ -183,8 +184,6 @@ div.img-container img {
 }
 
 
-
-
 /*FORM ELEMENTS*/
 form {
   text-align: center;
@@ -242,6 +241,13 @@ label input:focus {
   max-width: 100%;
   width: 400px;
 }
+
+::-webkit-autofill
+{
+    background-color: transparent;
+}
+
+
 label input:focus + .label-text {
   color: #F0F0F0;
   font-size: 13px;

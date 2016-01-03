@@ -1,6 +1,23 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+    header
+      #cssmenu
+        ul
+          li
+            a(href='/')
+              span Home
+          li
+            a(href='/leaderboard')
+              span Leaderboard
+          li
+            a(href='/rules')
+              span Rules
+
+    .main-body(style="width:80%; margin:auto;")
+        h1= message
+        h2= error.status
+        pre #{error.stack}
+    footer
+      p
+        | ©   Privacy Policy   Contact Us   The Developers

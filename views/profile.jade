@@ -9,21 +9,26 @@ block content
     header
       #cssmenu
         ul
-          li
-            a(href='/')
-              span Home
-          li
-            a(href='/leaderboard')
-              span Leaderboard
-          li
-            a(href='/logout')
-              span Logout
+            li 
+                a(href='/play') 
+                    span Play
+            li 
+                a(href='/leaderboard') 
+                    span Leaderboard
+            li
+                a(href='/rules')
+                    span Rules
+            li
+                a(href='/logout')
+                    span Sign Out
     .main-body
-        a(href="/play") Play
-        p Welcome #{user.firstname}!
-        p Your email is #{user.email}
-        p Your school is #{user.school}
-        a(href="/logout") Logout
+        form
+            h2
+                a(href="/play", style="text-decoration:underline; font-weight:none;") Play
+            p Welcome #{user.firstname}!
+            p Your email is #{user.email}
+            p Your school is #{user.school}
+            a(href="/logout") Logout
     footer
         p
             | ©   Privacy Policy   Contact Us   The Developers
