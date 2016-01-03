@@ -30,16 +30,24 @@ block content
             input(type='text', name='answer', required='')
             .label-text Answer
           button Add Level
+     
       section#login-right
-        h2 Existing Levels
-            ul
-                each level in levels
-                    li #{level.level} - #{level.title}
-                        ul
-                            li Page clue: #{level.clue1}
-                            li Actions
-                              ul
-                                li
-                                  a(href='/levels/#{level._id}/edit') Edit
-                                li
-                                  a(href='/levels/#{level._id}/delete') Delete
+        table#level-info
+          thead
+            tr
+              td#level-info-header(colspan='4') Existing Levels
+            tr
+              td Level
+              td Title
+              td Clue
+              td Actions
+          tbody
+            each level in levels
+              tr
+                td #{level.level}
+                td #{level.title}
+                td #{level.clue1}
+                td 
+                  a(href='/levels/#{level._id}/edit', style='color: #0f0') Edit
+                  &nbsp;
+                  a(href='/levels/#{level._id}/delete', style='color: #f00') Delete
