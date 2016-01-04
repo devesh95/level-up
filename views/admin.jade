@@ -91,18 +91,18 @@ block content
             input(type='text', name='query', required='')
             .label-text Search Query
           h3 Searching by
-          label
-            input(type='radio', name='parameter', value='username', checked)
-            span(class='label-text') &nbsp;Username
-            br
-            input(type='radio', name='parameter', value='lastname')
-            span(class='label-text') &nbsp;Last Name
-            br
-            input(type='radio', name='parameter', value='firstname')
-            span(class='label-text') &nbsp;First Name
-            br
-            input(type='radio', name='parameter', value='email')
-            span(class='label-text') &nbsp;Email
+          label(for='username')           
+             input(type='radio', name='parameter', id='username', value='username', checked)
+             span(class='label-text') &nbsp;Username
+          label(for='lastname')
+             input(type='radio', id='lastname', name='parameter', value='lastname')
+             span(class='label-text') &nbsp;Last Name
+          label(for='firstname')
+             input(type='radio', id='firstname', name='parameter', value='firstname')
+             span(class='label-text') &nbsp;First Name
+          label(for='email')
+             input(type='radio', id='email', name='parameter', value='email')
+             span(class='label-text') &nbsp;Email
         hr
 
         h2 Existing Levels

@@ -38,10 +38,8 @@ footer {
 }
 
 .main-body {
-    min-height: 78%;
-    height: 85%;
+    min-height: 80%;
     padding-bottom: 1%;
-    overflow: auto;
 }
 
 h2 {
@@ -84,7 +82,7 @@ h3 {
 #login-left {
     width: 65%;
     margin-top: 10px;
-    border-right: 2px solid #4A4A4A;
+
     height: 100%;
     float: left;
     right: -15px;
@@ -96,8 +94,9 @@ h3 {
     margin: auto;
     margin-top: auto;
     height: 100%;
-    float: right;
     margin: 0;
+    overflow: auto;
+    border-left: 2px solid #4A4A4A;
     margin-top: 10px;
 }
 
@@ -277,6 +276,14 @@ label {
     text-align: center;
 }
 
+label input[type=radio]:checked span
+{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+
 label .label-text {
     color: #9B9B9B;
     cursor: text;
@@ -313,17 +320,18 @@ label input[type=radio] {
     outline: 0;
     padding: 5px;
     text-align: center;
-    transition: all 0.3s;
+    cursor:pointer;
 }
 
-label input:focus {
+label input[type=radio]:checked{
+    text-decoration: underline;
+}
+
+label input[type=text]:focus, label input[type=number]:focus, label input[type=password]:focus {
     max-width: 100%;
     width: 400px;
 }
 
-::-webkit-autofill {
-    background-color: transparent;
-}
 
 label input:focus + .label-text {
     color: #F0F0F0;
@@ -433,4 +441,9 @@ a:focus {
     background-color: white;
     color: #333333;
     outline: 0;
+}
+
+#searchOptions
+{
+    margin:auto;
 }
