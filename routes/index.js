@@ -33,7 +33,6 @@ router.post('/register', function(req, res) {
       current_level: 0
     }), req.body.password, function(err, account) {
       if (err) {
-        console.log(err.message);
         return res.render('register', {
           message: err.message
         });
@@ -41,7 +40,11 @@ router.post('/register', function(req, res) {
 
       passport.authenticate('local')(req, res, function() {
         // on login, redirect to profile page
-        res.redirect('/users/' + req.user.username);
+        if (req.user.username == 'admin') {
+          res.redirect('/admin');
+        } else {
+          res.redirect('/users/' + req.user.username);
+        }
       });
     });
   } else {
@@ -49,7 +52,6 @@ router.post('/register', function(req, res) {
       message: 'All fields must be completed!'
     });
   }
-
 });
 
 router.get('/login', function(req, res) {
