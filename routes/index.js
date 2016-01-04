@@ -23,26 +23,33 @@ router.get('/register', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
-  Account.register(new Account({
-    username: req.body.username,
-    firstname: req.body.firstname,
-    email: req.body.email,
-    lastname: req.body.lastname,
-    school: req.body.school,
-    current_level: 0
-  }), req.body.password, function(err, account) {
-    if (err) {
-      console.log(err.message);
-      return res.render('register', {
-        message: err.message
-      });
-    }
+  if (req.body && req.body.firstname && req.body.lastname && req.body.school && req.body.email) {
+    Account.register(new Account({
+      username: req.body.username,
+      firstname: req.body.firstname,
+      email: req.body.email,
+      lastname: req.body.lastname,
+      school: req.body.school,
+      current_level: 0
+    }), req.body.password, function(err, account) {
+      if (err) {
+        console.log(err.message);
+        return res.render('register', {
+          message: err.message
+        });
+      }
 
-    passport.authenticate('local')(req, res, function() {
-      // on login, redirect to profile page
-      res.redirect('/users/' + req.user.username);
+      passport.authenticate('local')(req, res, function() {
+        // on login, redirect to profile page
+        res.redirect('/users/' + req.user.username);
+      });
     });
-  });
+  } else {
+    res.render('register', {
+      message: 'All fields must be completed!'
+    });
+  }
+
 });
 
 router.get('/login', function(req, res) {
