@@ -32,8 +32,9 @@ router.post('/register', function(req, res) {
     current_level: 0
   }), req.body.password, function(err, account) {
     if (err) {
+      console.log(err.message);
       return res.render('register', {
-        info: err.message
+        message: err.message
       });
     }
 
