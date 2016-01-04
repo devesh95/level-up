@@ -52,9 +52,10 @@ block content
               tbody
                 each user in searchview
                   tr.result
-                    td #{user.firstname}
+                    td #{user.firstname} #{user.lastname}
                     td #{user.username} 
-                    td #{user.email}
+                    td 
+                      a(href='mailto:#{user.email}') #{user.email}
                     if (user.current_level == '-1')
                       td(style='color: #f00') #{user.current_level}
                     else
