@@ -19,21 +19,25 @@ block content
             span Sign Out
             
   .main-body
-    form(role="form", action="/levels/#{level.level}", method="post")
-      h2.level-title
-        | Level #{level.level}: #{level.title}
-      if (level.imagePath)
-        .img-container
-          img(src='/images/pj.jpg')
-      label
-        input(type='text', name="answer", required='')
-        .label-text #{level.clue1}
-      if (level.comment_clue)
-        //
-          #{level.comment_clue}
+    if (dq)
+      h2 Sorry, you've been disqualifed.
       br
-      h3(style="color: #f00")= info
-      button(type='submit') Submit
+    else
+      form(role="form", action="/levels/#{level.level}", method="post")
+        h2.level-title
+          | Level #{level.level}: #{level.title}
+        if (level.imagePath)
+          .img-container
+            img(src='/images/pj.jpg')
+        label
+          input(type='text', name="answer", required='')
+          .label-text #{level.clue1}
+        if (level.comment_clue)
+          //
+            #{level.comment_clue}
+        br
+        h3(style="color: #f00")= info
+        button(type='submit') Submit
         
   footer
     p

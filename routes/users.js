@@ -1,6 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var Level = require('../models/level');
+var Account = require('../models/account');
 var router = express.Router();
 
 function requireLogin(req, res, next) {
@@ -34,6 +35,29 @@ router.get('/:username', requireLogin, function(req, res) {
       user: req.user
     });
   }
+});
+
+router.get('/:user_id/disqualify', requireAdminLogin, function(req, res) {
+  Account.findOne({
+    _id: req.params.user_id
+  }, function(err, user) {
+    if (err) {
+      console.log(err);
+      next(err);
+    } else {
+      console.log('Disqualifying user ' + user.username + '...');
+      user.current_level = '-1';
+      user.save(function(saveerr, result) {
+        if (saveerr) {
+          console.log(saveerr);
+          next(saveerr);
+        } else {
+          console.log('Done!');
+          res.redirect('/admin');
+        }
+      });
+    }
+  });
 });
 
 router.post('/search', requireAdminLogin, function(req, res) {

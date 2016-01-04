@@ -47,6 +47,7 @@ block content
                   td Name
                   td Username
                   td Email
+                  td Level
                   td Actions
               tbody
                 each user in searchview
@@ -54,8 +55,12 @@ block content
                     td #{user.firstname}
                     td #{user.username} 
                     td #{user.email}
+                    if (user.current_level == '-1')
+                      td(style='color: #f00') #{user.current_level}
+                    else
+                      td #{user.current_level}
                     td 
-                      a(href='/user/#{user._id}/disqualify', style='color: ##9B9B9B') Disqualify
+                      a(href='/users/#{user._id}/disqualify', style='color: ##9B9B9B') Disqualify
           else
             h3(style="color: #f00") No results found
 

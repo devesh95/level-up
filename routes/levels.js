@@ -89,13 +89,19 @@ router.post('/:level', requireLogin, function(req, res) {
                 result: 'Database error. Please try again in some time.'
               });
             } else {
-              account.current_level = String(Number(account.current_level) + 1);
-              account.last_solved_timestamp = last_solved;
-              account.save(function(err, saveResponse) {
-                // reload play page
-                req.session.info = null;
-                res.redirect('/play');
-              })
+              if (account.current_level == '-1') {
+                // disqualified user
+                req.logout();
+                res.redirect('/');
+              } else {
+                account.current_level = String(Number(account.current_level) + 1);
+                account.last_solved_timestamp = last_solved;
+                account.save(function(err, saveResponse) {
+                  // reload play page
+                  req.session.info = null;
+                  res.redirect('/play');
+                });
+              }
             }
           });
         } else {
@@ -106,9 +112,8 @@ router.post('/:level', requireLogin, function(req, res) {
       }
     });
   } else {
-    res.send({
-      result: 'Invalid request.'
-    });
+    req.session.info = 'Incorrect answer';
+    res.redirect('/play');
   }
 });
 

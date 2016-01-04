@@ -110,20 +110,27 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/play', requireLogin, function(req, res) {
   var current_level = req.user.current_level;
-  Level.findOne({
-    level: current_level
-  }, function(err, level) {
-    if (err) {
-      console.log(err);
-      next(err); // TODO: handle better
-    } else {
-      level ? delete level.hashed_answer : console.log('no level found'); // self explanatory lol
-      res.render('play', {
-        level: level || {},
-        info: req.session.info
-      });
-    }
-  });
+  if (current_level == '-1') {
+    res.render('play', {
+      level: {},
+      dq: true
+    });
+  } else {
+    Level.findOne({
+      level: current_level
+    }, function(err, level) {
+      if (err) {
+        console.log(err);
+        next(err); // TODO: handle better
+      } else {
+        level ? delete level.hashed_answer : console.log('no level found'); // self explanatory lol
+        res.render('play', {
+          level: level || {},
+          info: req.session.info
+        });
+      }
+    });
+  }
 });
 
 router.get('/admin', requireAdminLogin, function(req, res) {
