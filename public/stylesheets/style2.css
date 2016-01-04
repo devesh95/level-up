@@ -40,6 +40,7 @@ footer {
 .main-body {
     min-height: 80%;
     padding-bottom: 1%;
+    display: -webkit-inline-box;
 }
 
 h2 {
@@ -82,11 +83,9 @@ h3 {
 #login-left {
     width: 65%;
     margin-top: 10px;
-
     height: 100%;
-    float: left;
     right: -15px;
-    overflow: auto;
+    overflow-y: : auto;
 }
 
 #login-right {
@@ -95,7 +94,7 @@ h3 {
     margin-top: auto;
     height: 100%;
     margin: 0;
-    overflow: auto;
+    overflow-y: auto;
     border-left: 2px solid #4A4A4A;
     margin-top: 10px;
 }

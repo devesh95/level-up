@@ -199,6 +199,16 @@ router.get('/leaderboard', function(req, res) {
       if (req.user) {
         signed_in = true;
       }
+      var index;
+      for (var i = 0 ; i < data.length; i++) {
+        if (data[i].username == 'admin') {
+          index = i;
+          break;
+        }
+      }
+      if (index) {
+        data.splice(index, 1);
+      }
       res.render('leaderboard', {
         data: data,
         signed_in: signed_in
