@@ -206,7 +206,9 @@ router.get('/leaderboard', function(req, res) {
           break;
         }
       }
-      index ? delete data[index] : (console.log());
+      if (index) {
+        data.splice(index, 1);
+      }
       res.render('leaderboard', {
         data: data,
         signed_in: signed_in
