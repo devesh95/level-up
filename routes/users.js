@@ -12,9 +12,13 @@ function requireLogin(req, res, next) {
 }
 
 router.get('/:username', requireLogin, function(req, res) {
-  res.render('profile', {
-    user: req.user
-  });
+  if (req.params.username != req.user.username) {
+    res.redirect('/users/' + req.user.username);
+  } else {
+    res.render('profile', {
+      user: req.user
+    });
+  }
 });
 
 module.exports = router;
