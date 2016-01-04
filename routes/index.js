@@ -5,6 +5,29 @@ var Level = require('../models/level');
 var crypto = require('crypto');
 var router = express.Router();
 
+function requireLogin(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+}
+
+function requireAdminLogin(req, res, next) {
+  if (req.user && req.user.username == 'admin') {
+    next();
+  } else {
+    console.log('ERROR: Trying to access admin resources with insufficient privileges.');
+    console.log('Trespasser:');
+    if (!req.user) {
+      console.log('Isn\'t signed in');
+    } else {
+      console.log(req.user.username + '; email: ' + req.user.email + '; timestamp (unix ms): ' + (new Date()).getTime());
+    }
+    res.redirect('/login');
+  }
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.user) {
@@ -74,22 +97,6 @@ router.get('/login', function(req, res) {
   }
 });
 
-function requireLogin(req, res, next) {
-  if (req.user) {
-    next();
-  } else {
-    res.redirect('/login');
-  }
-}
-
-function requireAdminLogin(req, res, next) {
-  if (req.user && req.user.username == 'admin') {
-    next();
-  } else {
-    res.redirect('/login');
-  }
-}
-
 router.post('/login', passport.authenticate('local', {
   failureRedirect: '/login?failure=true'
 }), function(req, res) {
@@ -125,23 +132,46 @@ router.get('/admin', requireAdminLogin, function(req, res) {
       'level': 1,
     }
   }], function(err, levels) {
-    if (req.query.editview) {
-      var editview_id = String(req.query.editview);
-      var details = null;
-      for (var i = 0; i < levels.length; i++) {
-        if (levels[i]._id == editview_id) {
-          details = levels[i];
-          break;
-        }
-      }
-      res.render('admin', {
-        levels: levels,
-        editview: details
-      });
+    if (err) {
+      console.log(err);
+      next(err);
     } else {
-      res.render('admin', {
-        levels: levels
-      });
+      if (req.query.editview) {
+        var editview_id = String(req.query.editview);
+        var details = null;
+        for (var i = 0; i < levels.length; i++) {
+          if (levels[i]._id == editview_id) {
+            details = levels[i];
+            break;
+          }
+        }
+        res.render('admin', {
+          levels: levels,
+          editview: details
+        });
+      } else if (req.query.searchview) {
+        var searchQuery = new RegExp(req.query.query, 'i');
+        var searchField = req.query.parameter;
+        var searchParams = {};
+        searchParams[searchField] = {
+          $regex: searchQuery
+        }
+        Account.find(searchParams, function(searcherr, data) {
+          if (searcherr) {
+            console.log(searcherr);
+            next(searcherr);
+          } else {
+            res.render('admin', {
+              levels: levels,
+              searchview: data
+            });
+          }
+        });
+      } else {
+        res.render('admin', {
+          levels: levels
+        });
+      }
     }
   });
 });

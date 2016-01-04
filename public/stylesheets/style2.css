@@ -51,6 +51,36 @@ h2 {
     margin-top: 15px;
 }
 
+h3 {
+    color: #9B9B9B;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
+}
+
+.result {
+    color: #9B9B9B;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.label-text {
+    color: #9B9B9B;
+}
+
+#search_results {
+    margin: auto;
+    width: 400px;
+    text-align: center;
+    color: #9B9B9B;
+    border: 1px solid #9B9B9B;
+}
+
+#search_results td {
+    padding: 10px;
+}
+
 #login-left {
     width: 65%;
     margin-top: 10px;
@@ -230,7 +260,7 @@ form {
 #login-right form {
     text-align: center;
     padding-top: 20px;
-    height: 80%;
+    max-height: 80%;
     padding-bottom: 20px;
 }
 
@@ -260,7 +290,7 @@ label .label-text {
     transition: all 0.3s;
 }
 
-label input {
+label input[type=text], label input[type=number], label input[type=password] {
     background-color: transparent;
     border: 0;
     border-bottom: 2px solid #4A4A4A;
@@ -271,7 +301,19 @@ label input {
     padding: 5px 20px;
     text-align: center;
     transition: all 0.3s;
-    width: 200px;
+    width: 250px;
+}
+
+label input[type=radio] {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    font-size: 24px;
+    letter-spacing: -1px;
+    outline: 0;
+    padding: 5px;
+    text-align: center;
+    transition: all 0.3s;
 }
 
 label input:focus {

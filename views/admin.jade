@@ -17,9 +17,6 @@ block content
       section#login-left
         if (editview)
           h2 Currently viewing level #{editview.level}
-        else
-          h2 Create a New Level
-        if (editview)
           form(role='form', method='post', action='/levels/#{editview._id}/edit')
             label
               input(type='number', name='level', required='', value='#{editview.level}')
@@ -37,7 +34,34 @@ block content
               input(type='text', name='answer', required='', value='')
               .label-text Answer
             button Edit Level
+          br
+          h3 
+            a(href='/admin') Create new level instead
+        else if (searchview)
+          h2 User search results
+          h3(style="color: #0f0") Found #{searchview.length} result(s):
+          p #{searchview}
+          if (searchview.length > 0)
+            table#search_results
+              thead
+                tr
+                  td Name
+                  td Username
+                  td Email
+                  td Actions
+              tbody
+                each user in searchview
+                  tr.result
+                    td #{user.firstname}
+                    td #{user.username} 
+                    td #{user.email}
+                    td 
+                      a(href='/user/#{user._id}/disqualify', style='color: ##9B9B9B') Disqualify
+          else
+            h3(style="color: #f00") No results found
+
         else
+          h2 Create a new level
           form(role='form', method='post', action='/levels/new')
             label
               input(type='number', name='level', required='')
@@ -57,11 +81,31 @@ block content
             button Add Level
      
       section#login-right
+        h2 Search Users
+        form(role='form', method='post', action='/users/search')
+          label
+            input(type='text', name='query', required='')
+            .label-text Search Query
+          h3 Searching by
+          label
+            input(type='radio', name='parameter', value='username', checked)
+            span(class='label-text') &nbsp;Username
+            br
+            input(type='radio', name='parameter', value='lastname')
+            span(class='label-text') &nbsp;Last Name
+            br
+            input(type='radio', name='parameter', value='firstname')
+            span(class='label-text') &nbsp;First Name
+            br
+            input(type='radio', name='parameter', value='email')
+            span(class='label-text') &nbsp;Email
+        hr
+
         h2 Existing Levels
         table#level-info
           thead
             tr
-              td Level
+              td(width=60) Level
               td Title
               td Clue
               td Actions
@@ -75,6 +119,7 @@ block content
                   a(href='/levels/#{level._id}/edit', style='color: ##9B9B9B') Edit
                   span.space &nbsp;
                   a(href='/levels/#{level._id}/delete', style='color: #4A4a4a') Delete
+        br
     footer
         p
             | ©   Privacy Policy   Contact Us   The Developers

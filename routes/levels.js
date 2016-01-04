@@ -19,7 +19,11 @@ function requireAdminLogin(req, res, next) {
   } else {
     console.log('ERROR: Trying to access admin resources with insufficient privileges.');
     console.log('Trespasser:');
-    console.log(req.user.username + '; email: ' + req.user.email + '; timestamp (unix ms): ' + (new Date()).getTime());
+    if (!req.user) {
+      console.log('Isn\'t signed in');
+    } else {
+      console.log(req.user.username + '; email: ' + req.user.email + '; timestamp (unix ms): ' + (new Date()).getTime());
+    }
     res.redirect('/login');
   }
 }
