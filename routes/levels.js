@@ -66,47 +66,51 @@ router.post('/new', requireAdminLogin, function(req, res) {
  */
 router.post('/:level', requireLogin, function(req, res) {
   var levelId = req.params.level;
-  if (req.body.answer && req.body.answer != '') {
-    Level.findOne({
-      level: levelId
-    }, function(err, levelDetails) {
+  if (req.body.answer && req.body.answer != '' && req.user.username) {
+    Account.findOne({
+      username: req.user.username
+    }, function(err, account) {
       if (err) {
         console.log(err);
-        res.send({
-          result: 'Database error. Please try again in some time.'
-        });
+        req.session.info = 'Database error. Please try again in some time.';
+        res.redirect('/play');
       } else {
-        var encrypted_answer = crypto.createHash('md5').update(req.body.answer).digest('hex');
-        if (encrypted_answer === levelDetails.hashed_answer) {
-          // update user level and render new level
-          var last_solved = (new Date()).getTime();
-          Account.findOne({
-            username: req.user.username
-          }, function(err, account) {
+        if (levelId == Number(account.current_level)) {
+          Level.findOne({
+            level: levelId
+          }, function(err, levelDetails) {
             if (err) {
               console.log(err);
               res.send({
                 result: 'Database error. Please try again in some time.'
               });
             } else {
-              if (account.current_level == '-1') {
-                // disqualified user
-                req.logout();
-                res.redirect('/');
+              var encrypted_answer = crypto.createHash('md5').update(req.body.answer).digest('hex');
+              if (encrypted_answer === levelDetails.hashed_answer) {
+                // update user level and render new level
+                var last_solved = (new Date()).getTime();
+                if (account.current_level == '-1') {
+                  // disqualified user
+                  req.logout();
+                  res.redirect('/');
+                } else {
+                  account.current_level = String(Number(account.current_level) + 1);
+                  account.last_solved_timestamp = last_solved;
+                  account.save(function(err, saveResponse) {
+                    // reload play page
+                    req.session.info = null;
+                    res.redirect('/play');
+                  });
+                }
               } else {
-                account.current_level = String(Number(account.current_level) + 1);
-                account.last_solved_timestamp = last_solved;
-                account.save(function(err, saveResponse) {
-                  // reload play page
-                  req.session.info = null;
-                  res.redirect('/play');
-                });
+                delete levelDetails.hashed_answer;
+                req.session.info = 'Incorrect answer';
+                res.redirect('/play');
               }
             }
           });
         } else {
-          delete levelDetails.hashed_answer;
-          req.session.info = 'Incorrect answer';
+          req.session.info = 'Nice try :)';
           res.redirect('/play');
         }
       }
@@ -116,7 +120,6 @@ router.post('/:level', requireLogin, function(req, res) {
     res.redirect('/play');
   }
 });
-
 /**
  * Deletes a level, but requires admin privilege.
  */
