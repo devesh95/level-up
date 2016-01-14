@@ -60,7 +60,7 @@ router.post('/register', function(req, res) {
           message: 'Something went wrong, please try again later.'
         });
       } else {
-        if (existingAccountWithSameEmail) {
+        if (existingAccountWithSameEmail.length > 0) {
           return res.render('register', {
             message: 'That email is already in use.'
           });
