@@ -47,7 +47,9 @@ router.get('/register', function(req, res) {
 
 router.post('/register', function(req, res) {
   if (req.body && req.body.firstname && req.body.lastname && req.body.school && req.body.email) {
-    Account.find({}, function(err, existingAccountWithSameEmail) {
+    Account.find({
+      email: req.body.email.toLowerCase()
+    }, function(err, existingAccountWithSameEmail) {
       if (err) {
         console.log(err);
         return res.render('register', {
@@ -62,7 +64,7 @@ router.post('/register', function(req, res) {
           Account.register(new Account({
             username: req.body.username,
             firstname: req.body.firstname,
-            email: req.body.email,
+            email: req.body.email.toLowerCase(),
             lastname: req.body.lastname,
             school: req.body.school,
             current_level: 0
