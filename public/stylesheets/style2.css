@@ -290,6 +290,11 @@ label input[type=radio]:checked span
     text-decoration: underline;
 }
 
+label input[type=file]
+{
+    margin-bottom: 15px;
+    background: #9B9B9B;
+}
 
 
 label .label-text {

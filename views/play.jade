@@ -28,7 +28,7 @@ block content
           | Level #{level.level}: #{level.title}
         if (level.imagePath)
           .img-container
-            img(src='/images/pj.jpg')
+            img(src="#{level.imagePath}")
         label
           input(type='text', name="answer", required='')
           .label-text #{level.clue1}
@@ -38,7 +38,3 @@ block content
         br
         h3(style="color: #f00")= info
         button(type='submit') Submit
-        
-  footer
-    p
-      | ©   Privacy Policy   Contact Us   The Developers
