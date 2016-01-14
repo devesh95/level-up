@@ -47,7 +47,10 @@ router.get('/register', function(req, res) {
 
 router.post('/register', function(req, res) {
   if (req.body && req.body.firstname && req.body.lastname && req.body.school && req.body.email) {
-    var email = req.body.email.toLowerCase().replace(/+/g, '').replace(/./g, '');
+    var email = req.body.email.toLowerCase();
+    if (email.indexOf('@gmail.com') > -1) {
+      email = replace(/+/g, '').replace(/./g, '');
+    }
     Account.find({
       email: email
     }, function(err, existingAccountWithSameEmail) {
