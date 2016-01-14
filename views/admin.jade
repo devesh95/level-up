@@ -33,7 +33,14 @@ block content
             label
               input(type='text', name='answer', required='', value='')
               .label-text Answer
-            input(type='file', name='image', value='#{editview.image}', accept='.jpg,.jpeg,.png')
+            if (editview.imagePath)
+              h2 Image
+              img(src="data:image/png;base64,#{editview.imagePath}")
+              br
+              br
+            input(type='file', name='image', accept='.jpg,.jpeg,.png')
+            br
+            br
             button Edit Level
           br
           h3 
@@ -68,7 +75,7 @@ block content
 
         else
           h2 Create a new level
-          form(role='form', method='post', action='/levels/new')
+          form(role='form', method='post', action='/levels/new', enctype="multipart/form-data")
             label
               input(type='number', name='level', required='')
               .label-text Level Number (Next: #{levels.length})
@@ -85,7 +92,7 @@ block content
               input(type='text', name='answer', required='')
               .label-text Answer
             label
-                input(type='file', name='image', accept='.jpg,.jpeg,.png')
+                input(type='file', name='image_clue', accept='.jpg,.jpeg,.png')
             button Add Level
      
       section#login-right

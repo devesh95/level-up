@@ -4,7 +4,10 @@ var Level = require('../models/level');
 var Account = require('../models/account');
 var crypto = require('crypto');
 var router = express.Router();
-/**Aman Code */
+var multer = require('multer');
+var upload = multer({
+  dest: 'uploads/'
+})
 var reader = require('fs');
 
 
@@ -42,7 +45,7 @@ function requireAdminLogin(req, res, next) {
  *   clue1: String
  * }
  */
-router.post('/new', requireAdminLogin, function(req, res) {
+router.post('/new', requireAdminLogin, upload.single('image_clue'), function(req, res) {
   if (req.body && req.body.title && req.body.level && req.body.clue1 && req.body.answer) {
     var newLevel = new Level();
     newLevel.title = req.body.title;
@@ -50,29 +53,34 @@ router.post('/new', requireAdminLogin, function(req, res) {
     newLevel.level = Number(req.body.level);
     newLevel.clue1 = req.body.clue1;
     newLevel.comment_clue = (req.body.comment_clue ? req.body.comment_clue : null);
-    
-    
-    /**Aman's Code */    
-    var file = (req.body.image ? req.body.image : null); //Need data from Devesh to finish this
-    if (file)
-    {
-        newLevel.imagePath = reader.readFile('file', 'base64', function(err,data)
-        {
-            if (err)
-            {
-                return console.log(err);
-            }
-            newLevel.imagePath = data;
+
+    if (req.file) {
+      // add an image as a BASE64 string to the level schema
+      var filepath = req.file.path;
+      newLevel.imagePath = reader.readFile(filepath, 'base64', function(err, data) {
+        if (err) {
+          console.log(err);
+        }
+        newLevel.imagePath = data;
+        // now delete the temp uploaded file
+        reader.unlink(filepath);
+        newLevel.save(function(err, done) {
+          if (err) {
+            res.send(err);
+          } else {
+            res.redirect('/admin');
+          }
         });
+      });
+    } else {
+      newLevel.save(function(err, done) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.redirect('/admin');
+        }
+      });
     }
-                 
-    newLevel.save(function(err, done) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.redirect('/admin');
-      }
-    });
   } else {
     console.log('ERROR: Attempt to create new level failed.')
     res.redirect('/admin');
