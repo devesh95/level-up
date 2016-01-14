@@ -4,6 +4,9 @@ var Level = require('../models/level');
 var Account = require('../models/account');
 var crypto = require('crypto');
 var router = express.Router();
+/**Aman Code */
+var reader = require('fs');
+
 
 function requireLogin(req, res, next) {
   if (req.user) {
@@ -35,6 +38,7 @@ function requireAdminLogin(req, res, next) {
  *   title: String,
  *   answer: String,
  *   level: Number,
+ *   imagePath: String,
  *   clue1: String
  * }
  */
@@ -46,6 +50,22 @@ router.post('/new', requireAdminLogin, function(req, res) {
     newLevel.level = Number(req.body.level);
     newLevel.clue1 = req.body.clue1;
     newLevel.comment_clue = (req.body.comment_clue ? req.body.comment_clue : null);
+    
+    
+    /**Aman's Code */    
+    var file = (req.body.image ? req.body.image : null); //Need data from Devesh to finish this
+    if (file)
+    {
+        newLevel.imagePath = reader.readFile('file', 'base64', function(err,data)
+        {
+            if (err)
+            {
+                return console.log(err);
+            }
+            newLevel.imagePath = data;
+        });
+    }
+                 
     newLevel.save(function(err, done) {
       if (err) {
         res.send(err);

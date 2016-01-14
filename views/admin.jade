@@ -33,6 +33,7 @@ block content
             label
               input(type='text', name='answer', required='', value='')
               .label-text Answer
+            input(type='file', name='image', value='#{editview.image}', accept='.jpg,.jpeg,.png')
             button Edit Level
           br
           h3 
@@ -83,6 +84,8 @@ block content
             label
               input(type='text', name='answer', required='')
               .label-text Answer
+            label
+                input(type='file', name='image', accept='.jpg,.jpeg,.png')
             button Add Level
      
       section#login-right
@@ -125,6 +128,3 @@ block content
                   span.space &nbsp;
                   a(href='/levels/#{level._id}/delete', style='color: #4A4a4a') Delete
         br
-    footer
-        p
-            | ©   Privacy Policy   Contact Us   The Developers
