@@ -175,7 +175,7 @@ router.get('/:level/edit', requireAdminLogin, function(req, res) {
 /**
  * Edits a level's details through the admin page form, with admin priveleges
  */
-router.post('/:level/edit', requireAdminLogin, function(req, res) {
+router.post('/:level/edit', requireAdminLogin, upload.single('image_clue'), function(req, res) {
   if (req.body) {
     Level.findOne({
       _id: req.params.level
@@ -188,13 +188,33 @@ router.post('/:level/edit', requireAdminLogin, function(req, res) {
         level.level = Number(req.body.level ? req.body.level : level.level);
         level.clue1 = (req.body.clue1 ? req.body.clue1 : level.clue1);
         level.comment_clue = (req.body.comment_clue ? req.body.comment_clue : level.comment_clue);
-        level.save(function(err, done) {
-          if (err) {
-            res.send(err);
-          } else {
-            res.redirect('/admin?editview=' + req.params.level);
-          }
-        });
+        if (req.file) {
+          // add an image as a BASE64 string to the level schema
+          var filepath = req.file.path;
+          newLevel.imagePath = reader.readFile(filepath, 'base64', function(err, data) {
+            if (err) {
+              console.log(err);
+            }
+            newLevel.imagePath = data;
+            // now delete the temp uploaded file
+            reader.unlink(filepath);
+            newLevel.save(function(err, done) {
+              if (err) {
+                res.send(err);
+              } else {
+                res.redirect('/admin');
+              }
+            });
+          });
+        } else {
+          level.save(function(err, done) {
+            if (err) {
+              res.send(err);
+            } else {
+              res.redirect('/admin?editview=' + req.params.level);
+            }
+          });
+        }
       }
     });
   } else {
