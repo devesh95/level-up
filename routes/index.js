@@ -49,7 +49,7 @@ router.post('/register', function(req, res) {
   if (req.body && req.body.firstname && req.body.lastname && req.body.school && req.body.email) {
     var email = req.body.email.toLowerCase();
     if (email.indexOf('@gmail.com') > -1) {
-      email = replace(/+/g, '').replace(/./g, '');
+      email = email.replace(/+/g, '').replace(/./g, '');
     }
     Account.find({
       email: email
